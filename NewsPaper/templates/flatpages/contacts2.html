@@ -1,0 +1,13 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+{{ flatpage.title }}
+{% endblock title %}
+
+{% block content %}
+    <h2 style='font-size:20px ; font-weight:100; font-family: Geneva, Arial, Helvetica, sans-serif;'  >{{ flatpage.title }}</h2>
+    <hr>
+    <h2style='font-size:10px ; font-weight:100; font-family: Geneva, Arial, Helvetica, sans-serif;'g>{{ flatpage.title }}</h2>
+
+{{ flatpage.content }}
+{% endblock content %}
