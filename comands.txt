@@ -5,8 +5,44 @@ from news.models import Author
 author_1 = Author.objects.create(user = user_1, rating = 1)
 author_2 = Author.objects.create(user = user_2, rating = 2)
 from news.models import Category
-category_1 = Category.objects.create(category_name = 'sport’)
+category_1 = Category.objects.create(category_name = 'sport')
 category_2 = Category.objects.create(category_name = 'politics')
 category_3 = Category.objects.create(category_name = 'education')
 category_4 = Category.objects.create(category_name = 'culture')
 from news.models import Comment
+---
+from django.contrib.auth.models import User
+user_1 = User.objects.get(username='user1')
+user_2 = User.objects.get(username='user2')
+from news.models import Author
+author_1 = Author.objects.get(user = user_1)
+author_2 = Author.objects.get(user = user_2)
+from news.models import Category
+category_1 = Category.objects.get(category_name = 'sport')
+category_2 = Category.objects.get(category_name = 'politics')
+category_3 = Category.objects.get(category_name = 'education')
+category_4 = Category.objects.get(category_name = 'culture')
+ç
+post_1 = Post.objects.create(author = author_1, post_name = 'классика бокса', text = 'Перед вами появится Python-консоль. Можно представить себе это как терминал, понимающий команды Python. Что ж, давайте попробуем проделать то, что написали выше. Для начала мы должны импортировать модель (ведь она находится в отдельном модуле-приложении rest)' )
+
+post_1.categories.add(category_1)
+
+post_2 = Post.objects.create(author = author_2, post_name = 'политики совсем охренели', text = 'Фреймворк нам деликатно, но ясно, сообщает: «Друг, ты пытаешься сделать невозможное. Просишь от меня два объекта, когда я могу отдать тебе только один». И здесь открывается интересная особенность работы метода get(). Этот метод всегда должен возвращать один и только один объект. Всякий раз, когда при передаче аргументов Django находит в базе данных ни одного объекта или больше одного объекта, подходящего под условия, он возвращает ошибку.Ну и зачем тогда им пользоваться, спросите вы? Этот метод удобно использовать при получении объекта по его pk (primary key — первичный ключ), потому что он всегда уникальный в рамках одной таблицы. Метод выполненный по этому запросу гарантированно вернет не более одного объекта. Также метод get хорошо применим, если у нас есть поле, которое может и не являться первичным ключом, но может быть уникальным. Именно поэтому при поиске по номеру трудового договора мы не получили никаких ошибок.' )
+
+post_2.categories.add(category_2)
+
+news_1 = Post.objects.create(author = author_1, choise = True, post_name = 'биткоин растет', text = 'В корневом каталоге репозитория при этом обязательно должен лежать файл index.html, иначе браузер не сможет открыть страницу по адресу. Для серверов у хостинг-провайдеров это тоже верно.Готово! Вы должны увидеть зелёное сообщение о том, что страница опубликована, и её адрес в интернете. Реальный доступ может появиться не мгновенно. Если вы видите по адресу ошибку 404, просто подождите немного или перезагрузите страницу с помощью Ctrl+F5.Помимо файлов с HTML, CSS и JS кодом, вы можете размещать на Github Pages все стандартные форматы изображений, которые поддерживают браузеры (jpg, png, svg)' )
+
+news_1.categories.add(category_3)
+
+from news.models import Comment
+
+com_1 = Comment.objects.create(post = post_1, user = user_2, text_comment = 'Товарищи! консультация с широким активом позволяет выполнять важные задания по разработке систем массового участия. Равным образом рамки и место обучения кадров влечет за собой процесс внедрения и модернизации системы обучения кадров, соответствует насущным потребностям.')
+com_2 = Comment.objects.create(post = post_1, user = user_1, text_comment = 'Равным образом постоянный количественный рост и сфера нашей активности играет важную роль в формировании системы обучения кадров, соответствует насущным потребностям.')
+com_3 = Comment.objects.create(post = post_2, user = user_2, text_comment = 'Значимость этих проблем настолько очевидна, что консультация с широким активом играет важную роль в формировании новых предложений')
+com_4 = Comment.objects.create(post = news_1, user = user_1, text_comment = 'Разнообразный и богатый опыт консультация с широким активом обеспечивает широкому кругу.')
+
+com_1.like()
+com_2.like()
+
+

@@ -21,6 +21,7 @@ class Post(models.Model):
     post_name = models.CharField(max_length = 255)
     text = models.CharField(max_length = 255)
     post_rating = models.FloatField(default=0.0)
+
     def like(self):
         rating = self.post_rating
         rating = rating+1
@@ -36,8 +37,6 @@ class Post(models.Model):
 
 
 
-
-
 class PostCategory(models.Model):
     post = models.ForeignKey(Post, on_delete = models.CASCADE)
     category = models.ForeignKey(Category, on_delete = models.CASCADE)
@@ -45,18 +44,16 @@ class PostCategory(models.Model):
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete = models.CASCADE)
     user = models.ForeignKey(User, on_delete = models.CASCADE)
-    text_comment = models.CharField(max_length = 255)
+    text_comment= models.CharField(max_length = 255)
     time_comment = models.DateTimeField(auto_now_add=True)
     rating_comment = models.FloatField(default=0.0)
 
     def like(self):
-        rating = self.rating_comment
-        rating = rating+1
-        return rating
+        self.rating_comment += 1
+        return self.rating_comment
 
     def dislike(self):
-        rating = self.rating_comment
-        rating = rating - 1
-        return rating
+        self.rating_comment -= 1
+        return self.rating_comment
 
 
