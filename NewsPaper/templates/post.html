@@ -4,9 +4,20 @@
 <!-- Название у нас будет proudcts -->
 {% block title %}
 All posts
-{% endblock title %}
 
+{% endblock title %}
 <!-- В контенте на странице мы выводим сам товар, айди которого было передано в адрес -->
 {% block content %}
-<h1>{{ post }}</h1>
+
+{% if post.choise %}
+    <h3> Новость номер {{ post.id }} </h3>
+{% else %}
+    <h3> Статья номер {{ post.id }} </h3>
+{% endif %}
+
+<h3> {{ post.name }} </h3>
+<hr>
+
+<h3> {{ post.text }} </h3>
+
 {% endblock content %}
