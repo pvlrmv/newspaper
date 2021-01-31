@@ -22,6 +22,12 @@ class Post(models.Model):
     text = models.CharField(max_length = 255)
     post_rating = models.FloatField(default=0.0)
 
+    def __str__(self):
+        return f'{self.post_name} {self.author}'
+
+    def get_absolute_url(self):  # добавим абсолютный путь чтобы после создания нас перебрасывало на страницу с товаром
+        return f'/post/{self.id}'
+
     def like(self):
         rating = self.post_rating
         rating = rating+1

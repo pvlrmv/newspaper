@@ -20,4 +20,9 @@ All posts
 
 <h3> {{ post.text }} </h3>
 
+<a href="{% url 'post_edit' post.pk %}">Редактировать</a>
+<br>
+<a href="{% url 'post_delete' post.pk %}">Удалить</a>
+
+
 {% endblock content %}
