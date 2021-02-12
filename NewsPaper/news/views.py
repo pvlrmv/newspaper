@@ -4,7 +4,9 @@ from .models import Post
 from datetime import datetime
 from .filters import PostFilter
 from .forms import PostForm # импортируем нашу форму
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 
 class PostList(ListView):
@@ -45,14 +47,16 @@ class Search(ListView):
         # в контекст
         return context
 
-class PostCreateView(CreateView):
+class PostCreateView(PermissionRequiredMixin,CreateView):
     template_name = 'add.html'
     form_class = PostForm
+    permission_required = ('news.add_post',)
 
 # дженерик для редактирования объекта
-class PostEditView(UpdateView):
+class PostEditView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     template_name = 'edit.html'
     form_class = PostForm
+    permission_required = ('news.change_post',)
 
     # метод get_object мы используем вместо queryset, чтобы получить информацию об объекте
     # который мы собираемся редактировать
@@ -62,7 +66,8 @@ class PostEditView(UpdateView):
 
 
 # дженерик для удаления товара
-class PostDeleteView(DeleteView):
+class PostDeleteView(PermissionRequiredMixin, DeleteView):
     template_name = 'delete.html'
     queryset = Post.objects.all()
+    permission_required = ('news.delete_post',)
     success_url = '/news/'
